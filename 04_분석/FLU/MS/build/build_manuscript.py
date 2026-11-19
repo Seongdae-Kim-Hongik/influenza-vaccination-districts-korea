@@ -182,7 +182,9 @@ def supplement():
                  "Odds ratios per 1 standard deviation from models in which the slope of one covariate varied across five regions; * 95% credible interval excludes 1. Capital, Seoul, Incheon, and Gyeonggi; Chungcheong, Daejeon, Sejong, and North and South Chungcheong; Honam, Gwangju and North and South Jeolla; Yeongnam, Busan, Daegu, Ulsan, and North and South Gyeongsang."))
     for t in tabs: add_table(S, t, 9)
     sup_letters(S)
-    S.page_break(); S.head("Supplementary Figure S1", 1); S.para("Annual Moran's I of logit influenza vaccination coverage, 2011-2024: " + "; ".join(f"{y} {v:.2f}" for y, v in N["moran_year"].items()) + ".")
+    S.page_break(); S.para("<b>Supplementary Figure S1</b>"); S.doc.add_picture(os.path.join(OUT, "Figures", "FigureS1.png"), width=Cm(15.5))
+    S.para("<b>Supplementary Fig. S1.</b> Annual Moran's I of logit standardized influenza vaccination coverage across 229 districts, 2011-2024 (district contiguity graph; 999 permutations, p = 0.001 in every year). The dashed line marks Moran's I of the 14-year district mean. Values: " + "; ".join(f"{y} {v:.2f}" for y, v in N["moran_year"].items()) + ".")
+    S.para("Alt text: Line chart of yearly Moran's I from 2011 to 2024; values range from 0.12 in 2017 to 0.40 in 2023 and stay below the pooled value of 0.43, rising after 2021.")
     S.doc_title = "Supplementary Material"; p = os.path.join(OUT, f"Supplementary_{TAG}.docx"); S.save(p); return p
 
 def to_pdf(p):
@@ -203,6 +205,8 @@ def title_page(aw, bw, npages):
     T.para("<b>Clinical trial registration and preregistration:</b> Not applicable; the study was not preregistered.", before=6)
     T.para(f"<b>Data and code availability:</b> All source data are publicly available aggregate statistics from the Korea Disease Control and Prevention Agency, Statistics Korea, and the Ministry of Culture, Sports and Tourism. The analysis code is openly available on Zenodo (https://doi.org/{ZENODO}) under the MIT license.", before=6)
     T.para("<b>Use of artificial intelligence tools:</b> During the preparation of this work the author used Claude (Anthropic) and ChatGPT (OpenAI) only for translation and English-language editing. After using these tools, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.", before=6)
+    T.para("<b>Transparency statements</b>", before=6)
+    for line in open(os.path.join(OUT, "Transparency_statements_FLU.txt")).read().strip().split("\n"): T.para(line)
     T.doc_title = C.TITLE; p = os.path.join(OUT, f"TitlePage_{TAG}.docx"); T.save(p); return p
 def pdf_pages(p):
     out = subprocess.run(["pdfinfo", p], capture_output=True, text=True).stdout; return int(re.search(r"Pages:\s+(\d+)", out).group(1))

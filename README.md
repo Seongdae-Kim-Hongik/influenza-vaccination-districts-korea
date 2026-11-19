@@ -2,7 +2,7 @@
 
 Analysis code for a manuscript on the district geography of age-sex-standardized adult influenza vaccination coverage from the Korea Community Health Survey and its district-level correlates (physical activity, sports facilities, and social composition).
 
-Archived version: Zenodo, https://doi.org/10.5281/zenodo.24360577 (v1.0.0).
+Archived version: Zenodo, https://doi.org/10.5281/zenodo.24365744 (v1.0.1). Version 1.0.1 adds `figS1_flu.py` (Supplementary Figure S1, annual Moran's I) and the matching figure insertion and in-text citation in the manuscript builder; the model code is unchanged from v1.0.0 (https://doi.org/10.5281/zenodo.24360577).
 
 This code is released under the MIT license.
 
@@ -38,7 +38,7 @@ Set `ST_DATA_ROOT` and `ST_GPT_DATASET` to the local copies of the public source
 | 4 | `80_build_disease_panel_v.py FLU` (`ST_VER=std3`) | Analytic panel (imputation, standardization, VIF) |
 | 5 | `81fh_flu.R FLU` via `04_분석/FLU/run_fh_chain.sh` | Main spatiotemporal Fay-Herriot model, set comparison, multiverse of all 127 covariate subsets, Knorr-Held models (`kh_constraints.R`), decomposition, windows, exclusion of 2020-2021, lags, leave-one-province-out, likelihoods, graph and prior, RSR, Spatial+, survey-based covariate and survey-operation checks, post hoc models |
 | 6 | `99FL4_flu_maps.py` | Maps |
-| 7 | `04_분석/FLU/MS/build/` | Manuscript numbers, tables, figures, and supplementary material |
+| 7 | `04_분석/FLU/MS/build/` | Manuscript numbers, tables, figures (`figs_flu.py`, `figS1_flu.py`), and supplementary material |
 
 The boundary file is found at `data/boundary/final.shp` by default; set `ST_SHP` to use another path. R jobs are wrapped in `rslot.sh` and run with one INLA thread.
 
