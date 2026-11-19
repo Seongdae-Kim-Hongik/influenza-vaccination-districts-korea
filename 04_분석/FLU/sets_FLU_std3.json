@@ -1,0 +1,121 @@
+{
+ "tag": "FLU",
+ "outcome_column": "kchs__DT_INFLUENZA__SR",
+ "outcome_label_en": "Influenza vaccination in the past 12 months, adults ≥19 y (KCHS, age-sex standardised to the 2005 projected population)",
+ "disease_en": "Influenza vaccination uptake",
+ "disease_ko": "인플루엔자 예방접종률",
+ "forced": [
+  "eloc__DT_1YL20421E__1인당도시지역면적현황__도시지역인구",
+  "chk__요양기관_의원",
+  "eloc__DT_1YL20701__남녀성비＜br＞(A÷B×100)",
+  "eloc__DT_1YL20891__재정자주도(세입과목개편전)",
+  "ext__pop80_share"
+ ],
+ "forced_transform": {
+  "eloc__DT_1YL20421E__1인당도시지역면적현황__도시지역인구": "ratio_pop",
+  "chk__요양기관_의원": "per100k",
+  "eloc__DT_1YL20701__남녀성비＜br＞(A÷B×100)": "none",
+  "eloc__DT_1YL20891__재정자주도(세입과목개편전)": "none",
+  "eloc__DT_1YL20631__고령인구비율＜br＞(A÷B×100)": "none",
+  "ext__pop80_share": "none"
+ },
+ "negative_controls": [
+  "eloc__DT_1YL21081__주민만명당화재발생건수＜br＞(A÷B×10000)",
+  "eloc__INH_1BB0002__다문화혼인비중(%)",
+  "kchs__DT_117075_H_BELT_BACK__SR"
+ ],
+ "sets": {
+  "S1_narrative_full": [
+   "kchs__DT_H_EX_WALK__SR",
+   "kchs__DT_H_EX_PHY__SR",
+   "fac__total",
+   "vil__계",
+   "ext__tertiary_educated_share",
+   "ext__basic_livelihood_rate",
+   "eloc__DT_1YL21161__1인가구비율＜br＞(A÷B×100)"
+  ],
+  "S2_pa": [
+   "kchs__DT_H_EX_WALK__SR",
+   "kchs__DT_H_EX_PHY__SR",
+   "fac__total",
+   "vil__계"
+  ],
+  "S3_social": [
+   "ext__tertiary_educated_share",
+   "ext__basic_livelihood_rate",
+   "eloc__DT_1YL21161__1인가구비율＜br＞(A÷B×100)"
+  ],
+  "S5_core": [
+   "kchs__DT_H_EX_WALK__SR",
+   "fac__total",
+   "ext__tertiary_educated_share",
+   "ext__basic_livelihood_rate"
+  ],
+  "REF_forced_only": []
+ },
+ "expected_direction": {
+  "kchs__DT_H_EX_WALK__SR": "+",
+  "kchs__DT_H_EX_PHY__SR": "+",
+  "fac__total": "+",
+  "vil__계": "+",
+  "ext__tertiary_educated_share": "+",
+  "ext__basic_livelihood_rate": "+",
+  "eloc__DT_1YL21161__1인가구비율＜br＞(A÷B×100)": "-"
+ },
+ "include_transform": {
+  "kchs__DT_H_EX_WALK__SR": "none",
+  "kchs__DT_H_EX_PHY__SR": "none",
+  "fac__total": "per100k",
+  "vil__계": "per100k",
+  "ext__tertiary_educated_share": "none",
+  "ext__basic_livelihood_rate": "none",
+  "eloc__DT_1YL21161__1인가구비율＜br＞(A÷B×100)": "none"
+ },
+ "rules": {
+  "credible": "95% CrI 1 제외",
+  "vif_drop": 10,
+  "multiverse_specs": 200,
+  "effect_scale": "per 1 SD (OR of influenza vaccination prevalence)",
+  "main_set": "S1_narrative_full",
+  "main_set_note": "시리즈 규칙: 주모형=S1_narrative_full(가설 변수 전부)+forced, VIF>10 유지·보고",
+  "windows": {
+   "W1_2011-15": [
+    2011,
+    2015
+   ],
+   "W2_2016-19": [
+    2016,
+    2019
+   ],
+   "W3_2020-24": [
+    2020,
+    2024
+   ]
+  },
+  "robust": "다중우주 credible≥75%·부호≥95% + KH II/IV 유지 + 음성대조",
+  "years": [
+   2011,
+   2024
+  ]
+ },
+ "extra_columns": {
+  "ext__pop80_share": [
+   "HTN_Estd2.csv",
+   "pop80_share_raw"
+  ],
+  "ext__tertiary_educated_share": [
+   "EXT_canonical_pool_FLU_261119.csv",
+   "tertiary_educated_share"
+  ],
+  "ext__basic_livelihood_rate": [
+   "EXT_canonical_pool_FLU_261119.csv",
+   "basic_livelihood_rate"
+  ]
+ },
+ "graph": "593-edge contact graph, ST_GRAPH=04_분석/FLU/graph_593.graph",
+ "note": "Outcome: KCHS influenza vaccination rate in the past 12 months (age-sex standardised), 229 districts, 2011-2024; Fay-Herriot logit model with known sampling variance. The identical vaccination indicator is excluded from the covariates.",
+ "kchs_same_sample_covariates": [
+  "kchs__DT_H_EX_WALK__SR",
+  "kchs__DT_H_EX_PHY__SR"
+ ]
+}
